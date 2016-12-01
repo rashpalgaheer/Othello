@@ -2,9 +2,13 @@ package scanning;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 import greedy.GreedySearch;
+import greedy.GreedySearchKaran;
 import mainGUI.*;
 public class DetectCordinates 
 {
@@ -83,9 +87,18 @@ public class DetectCordinates
 			{
 				if(yourColor == Color.WHITE && Grid.turn.equals("W") && Grid.algo.equals("greedy"))
 				{
-					ArrayList<String> temp = (ArrayList<String>)cordinates.clone();
-					GreedySearch.diagonalWhite.put(xCord+","+yCord+",DiaupLeft", temp);
-					cordinates.clear();
+					if(Grid.name.equals("rash"))
+					{
+						ArrayList<String> temp = (ArrayList<String>)cordinates.clone();
+						GreedySearch.diagonalWhite.put(xCord+","+yCord+",DiaupLeft", temp);
+						cordinates.clear();
+					}
+					if(Grid.name.equals("karan"))
+					{
+						ArrayList<String> temp = (ArrayList<String>)cordinates.clone();
+						GreedySearchKaran.storeWhiteDIAGONAL.put(xCord+","+yCord+",DiaupLeft", temp);
+						cordinates.clear();
+					}
 				}
 			}
 		}
@@ -127,10 +140,20 @@ public class DetectCordinates
 			{
 				if(yourColor == Color.WHITE && Grid.turn.equals("W") && Grid.algo.equals("greedy"))
 				{
-					ArrayList<String> temp = (ArrayList<String>)cordinates.clone();
-					GreedySearch.diagonalWhite.put(xCord+","+yCord+",DiadownLeft", temp);
-					cordinates.clear();
+					if(Grid.name.equals("rash"))
+					{
+						ArrayList<String> temp = (ArrayList<String>)cordinates.clone();
+						GreedySearch.diagonalWhite.put(xCord+","+yCord+",DiadownLeft", temp);
+						cordinates.clear();
+					}
+					if(Grid.name.equals("karan"))
+					{
+						ArrayList<String> temp = (ArrayList<String>)cordinates.clone();
+						GreedySearchKaran.storeWhiteDIAGONAL.put(xCord+","+yCord+",DiadownLeft", temp);
+						cordinates.clear();
+					}
 				}
+				
 			}
 		}
 		if(direction .equals("upRight"))
@@ -171,9 +194,19 @@ public class DetectCordinates
 			{
 				if(yourColor == Color.WHITE && Grid.turn.equals("W") && Grid.algo.equals("greedy"))
 				{
-					ArrayList<String> temp = (ArrayList<String>)cordinates.clone();
-					GreedySearch.diagonalWhite.put(xCord+","+yCord+",DiaupRight", temp);
-					cordinates.clear();
+					if(Grid.name.equals("rash"))
+					{
+						ArrayList<String> temp = (ArrayList<String>)cordinates.clone();
+						GreedySearch.diagonalWhite.put(xCord+","+yCord+",DiaupRight", temp);
+						cordinates.clear();
+					}
+					if(Grid.name.equals("karan"))
+					{
+						ArrayList<String> temp = (ArrayList<String>)cordinates.clone();
+						GreedySearchKaran.storeWhiteDIAGONAL.put(xCord+","+yCord+",DiaupRight", temp);
+						cordinates.clear();
+					}
+					
 				}
 			}
 		}
@@ -214,24 +247,59 @@ public class DetectCordinates
 				{
 					if(yourColor == Color.WHITE && Grid.turn.equals("W") && Grid.algo.equals("greedy"))
 					{
-						ArrayList<String> temp = (ArrayList<String>)cordinates.clone();
-						GreedySearch.diagonalWhite.put(xCord+","+yCord+",DiadownRight", temp);
-						cordinates.clear();
+						if(Grid.name.equals("rash"))
+						{
+							ArrayList<String> temp = (ArrayList<String>)cordinates.clone();
+							GreedySearch.diagonalWhite.put(xCord+","+yCord+",DiadownRight", temp);
+							cordinates.clear();
+						}
+						if(Grid.name.equals("karan"))
+						{
+							ArrayList<String> temp = (ArrayList<String>)cordinates.clone();
+							GreedySearchKaran.storeWhiteDIAGONAL.put(xCord+","+yCord+",DiadownRight", temp);
+							cordinates.clear();
+						}
 					}
+					
 				}
 			}
 		}
 			
 			if(convert)
 			{
-				XOButton.convertColor(cordinates);
+				
 				if(yourColor == Color.BLACK)
 				{
 					blackCordinates.addAll(cordinates);
+					XOButton.convertColor(cordinates);
 				}
 				else if(yourColor == Color.WHITE && Grid.algo.equals("2Player"))
 				{
 					whiteCordinates.addAll(cordinates);
+					XOButton.convertColor(cordinates);
+				}
+				else if(yourColor == Color.WHITE && Grid.algo.equals("minimax"))
+				{
+					whiteCordinates.addAll(cordinates);
+					XOButton.convertColor(cordinates);
+				}
+				else if(yourColor == Color.WHITE && Grid.algo.equals("minimax2"))
+				{
+					whiteCordinates.addAll(cordinates);
+					XOButton.convertColor(cordinates);
+				}
+				else if(Grid.algo.equals("VS"))
+				{
+					if(yourColor == Color.WHITE)
+					{
+						whiteCordinates.addAll(cordinates);
+						XOButton.convertColor(cordinates);
+					}
+					if(yourColor == Color.BLACK)
+					{
+						blackCordinates.addAll(cordinates);
+						XOButton.convertColor(cordinates);
+					}
 				}
 				validate ++;
 				convert = false;
@@ -278,9 +346,19 @@ public class DetectCordinates
 			{
 				if(yourColor == Color.WHITE && Grid.turn.equals("W") && Grid.algo.equals("greedy"))
 				{
-					ArrayList<String> temp = (ArrayList<String>)cordinates.clone();
-					GreedySearch.horizontalWhite.put(xCord+","+yCord+",HorLeft", temp);
-					cordinates.clear();
+					if(Grid.name.equals("rash"))
+					{
+						ArrayList<String> temp = (ArrayList<String>)cordinates.clone();
+						GreedySearch.horizontalWhite.put(xCord+","+yCord+",HorLeft", temp);
+						cordinates.clear();
+					}
+					if(Grid.name.equals("karan"))
+					{
+						ArrayList<String> temp = (ArrayList<String>)cordinates.clone();
+						GreedySearchKaran.storeWhiteHORIZONTAL.put(xCord+","+yCord+",HorLeft", temp);
+						cordinates.clear();
+					}
+					
 				}
 			}
 		}
@@ -321,10 +399,19 @@ public class DetectCordinates
 				{
 					if(yourColor == Color.WHITE && Grid.turn.equals("W") && Grid.algo.equals("greedy"))
 					{
-						ArrayList<String> temp = (ArrayList<String>)cordinates.clone();
-						
-						GreedySearch.horizontalWhite.put(xCord+","+yCord+",HorRight", temp);
-						cordinates.clear();
+						if(Grid.name.equals("rash"))
+						{
+							ArrayList<String> temp = (ArrayList<String>)cordinates.clone();
+							
+							GreedySearch.horizontalWhite.put(xCord+","+yCord+",HorRight", temp);
+							cordinates.clear();
+						}
+						if(Grid.name.equals("karan"))
+						{
+							ArrayList<String> temp = (ArrayList<String>)cordinates.clone();
+							GreedySearchKaran.storeWhiteHORIZONTAL.put(xCord+","+yCord+",HorRight", temp);
+							cordinates.clear();
+						}
 					}
 				}
 			}
@@ -342,6 +429,29 @@ public class DetectCordinates
 				{
 					whiteCordinates.addAll(cordinates);
 					XOButton.convertColor(cordinates);
+				}
+				else if(yourColor == Color.WHITE && Grid.algo.equals("minimax"))
+				{
+					whiteCordinates.addAll(cordinates);
+					XOButton.convertColor(cordinates);
+				}
+				else if(yourColor == Color.WHITE && Grid.algo.equals("minimax2"))
+				{
+					whiteCordinates.addAll(cordinates);
+					XOButton.convertColor(cordinates);
+				}
+				else if(Grid.algo.equals("VS"))
+				{
+					if(yourColor == Color.WHITE)
+					{
+						whiteCordinates.addAll(cordinates);
+						XOButton.convertColor(cordinates);
+					}
+					if(yourColor == Color.BLACK)
+					{
+						blackCordinates.addAll(cordinates);
+						XOButton.convertColor(cordinates);
+					}
 				}
 				
 				validate ++;
@@ -388,10 +498,19 @@ public class DetectCordinates
 			{
 				if(yourColor == Color.WHITE && Grid.turn.equals("W") && Grid.algo.equals("greedy"))
 				{
+					if(Grid.name.equals("rash"))
+					{
 					
-					ArrayList<String> temp = (ArrayList<String>)cordinates.clone();
-					GreedySearch.verticalWhite.put(xCord+","+yCord+",VerUp", temp);
-					cordinates.clear();
+						ArrayList<String> temp = (ArrayList<String>)cordinates.clone();
+						GreedySearch.verticalWhite.put(xCord+","+yCord+",VerUp", temp);
+						cordinates.clear();
+					}
+					if(Grid.name.equals("karan"))
+					{
+						ArrayList<String> temp = (ArrayList<String>)cordinates.clone();
+						GreedySearchKaran.storeWhiteVERTICAL.put(xCord+","+yCord+",VerUp", temp);
+						cordinates.clear();
+					}
 				}
 			}
 		}
@@ -431,9 +550,18 @@ public class DetectCordinates
 				{
 					if(yourColor == Color.WHITE && Grid.turn.equals("W") && Grid.algo.equals("greedy"))
 					{
-						ArrayList<String> temp = (ArrayList<String>)cordinates.clone();
-						GreedySearch.verticalWhite.put(xCord+","+yCord+",VerDown", temp);
-						cordinates.clear();
+						if(Grid.name.equals("rash"))
+						{
+							ArrayList<String> temp = (ArrayList<String>)cordinates.clone();
+							GreedySearch.verticalWhite.put(xCord+","+yCord+",VerDown", temp);
+							cordinates.clear();
+						}
+						if(Grid.name.equals("karan"))
+						{
+							ArrayList<String> temp = (ArrayList<String>)cordinates.clone();
+							GreedySearchKaran.storeWhiteVERTICAL.put(xCord+","+yCord+",VerDown", temp);
+							cordinates.clear();
+						}
 						
 					}
 				}
@@ -445,10 +573,35 @@ public class DetectCordinates
 				if(yourColor == Color.BLACK)
 				{
 					blackCordinates.addAll(cordinates);
+					XOButton.convertColor(cordinates);
 				}
 				else if(yourColor == Color.WHITE && Grid.algo.equals("2Player"))
 				{
 					whiteCordinates.addAll(cordinates);
+					XOButton.convertColor(cordinates);
+				}
+				else if(yourColor == Color.WHITE && Grid.algo.equals("minimax"))
+				{
+					whiteCordinates.addAll(cordinates);
+					XOButton.convertColor(cordinates);
+				}
+				else if(yourColor == Color.WHITE && Grid.algo.equals("minimax2"))
+				{
+					whiteCordinates.addAll(cordinates);
+					XOButton.convertColor(cordinates);
+				}
+				else if(Grid.algo.equals("VS"))
+				{
+					if(yourColor == Color.WHITE)
+					{
+						whiteCordinates.addAll(cordinates);
+						XOButton.convertColor(cordinates);
+					}
+					if(yourColor == Color.BLACK)
+					{
+						blackCordinates.addAll(cordinates);
+						XOButton.convertColor(cordinates);
+					}
 				}
 				validate ++;
 				convert = false;
@@ -459,6 +612,20 @@ public class DetectCordinates
 
 	public static void filterTileList() 
 	{
+		//removing duplicate values from arraylist
+		Set<String> hs = new HashSet<>();
+		hs.addAll(blackCordinates);
+		blackCordinates.clear();
+		blackCordinates.addAll(hs);
+		
+		Set<String> hs1 = new HashSet<>();
+		hs1.addAll(whiteCordinates);
+		whiteCordinates.clear();
+		whiteCordinates.addAll(hs1);
+		
+		
+		
+		
 		for (Iterator<String> iterator = whiteCordinates.iterator(); iterator.hasNext(); ) 
 		{
 		    String cord = iterator.next();

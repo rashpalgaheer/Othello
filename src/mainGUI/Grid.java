@@ -7,9 +7,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.concurrent.BrokenBarrierException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
 import greedy.GreedySearch;
@@ -20,10 +22,24 @@ public class Grid implements ActionListener, MouseListener {
 	public static String turn = "B";
 	
 //	public static String gridColor = "greedy";
-	public static String algo = "greedy";
+	public static String algo = "greedyR";
 	public static XOButton buttons[][]=new XOButton[8][8]; 
-	public static XOButton greedy = new XOButton("Greedy");
-	public static XOButton minimax = new XOButton("2 Player");
+	public static XOButton greedyRASH = new XOButton("GreedyR");
+	public static XOButton greedyKARAN = new XOButton("GreedyK");
+	public static XOButton two_player = new XOButton("2 Player");
+	public static XOButton minimax = new XOButton("minimax");
+	public static XOButton minimax2 = new XOButton("minimax2");
+	public static XOButton KvsR = new XOButton("KvsR");
+	
+	public static XOButton minimaxONE = new XOButton("minimaxONE");
+	public static XOButton minimaxTWO = new XOButton("minimaxTWO");
+	
+	public static int lastMoveX;
+	public static int lastMoveY;
+
+	public static boolean enableKvsR;
+
+	public static String name;
 	
 	public static void main(String main[])
 	{
@@ -31,7 +47,17 @@ public class Grid implements ActionListener, MouseListener {
 		JPanel panel = new JPanel(new GridLayout(8,8));
 		panel.setName("grid");
 		JPanel panel1 = new JPanel(new GridLayout());
+		JPanel miniVSmini = new JPanel(new GridLayout());
+		JPanel score = new JPanel(new GridLayout());
 		panel1.setName("choose");
+		miniVSmini.setName("miniVSmini");
+		score.setName("score");
+		JTextField whiteScore = new JTextField();
+		JTextField blackScore = new JTextField();
+		
+		score.add(whiteScore);
+		score.add(blackScore);
+		
 		
 		for(int i =0; i < 8; i++)
 		{
@@ -42,13 +68,28 @@ public class Grid implements ActionListener, MouseListener {
 			}
 		}
 		setStartignBoard();
-		greedy.setBorder(new LineBorder(Color.BLACK, 1));
+		greedyRASH.setBorder(new LineBorder(Color.BLACK, 1));
+		greedyKARAN.setBorder(new LineBorder(Color.BLACK, 1));
+		two_player.setBorder(new LineBorder(Color.BLACK, 1));
 		minimax.setBorder(new LineBorder(Color.BLACK, 1));
-		panel1.add(greedy);
+		minimax2.setBorder(new LineBorder(Color.BLACK, 1));
+		KvsR.setBorder(new LineBorder(Color.BLACK, 1));
+		panel1.add(greedyRASH);
+		panel1.add(greedyKARAN);
+		panel1.add(two_player);
 		panel1.add(minimax);
+		panel1.add(minimax2);
+		panel1.add(KvsR);
 		
-		frame.add(panel, BorderLayout.NORTH);
-		frame.add(panel1, BorderLayout.SOUTH);
+		
+		
+		miniVSmini.add(minimaxONE);
+		miniVSmini.add(minimaxTWO);
+		
+		frame.add(panel,BorderLayout.NORTH);
+		frame.add(panel1);
+		frame.add(miniVSmini, BorderLayout.SOUTH);
+//		frame.add(score, BorderLayout.PAGE_END);
 		frame.pack();
 		
 		frame.setVisible(true);
@@ -58,41 +99,41 @@ public class Grid implements ActionListener, MouseListener {
 //		buttons[3][1].setBackground(Color.WHITE);
 //		buttons[3][2].setBackground(Color.WHITE);
 //		buttons[5][4].setBackground(Color.BLACK);
-		//test 2
-//		buttons[5][4].setBackground(Color.BLACK);
-//		buttons[5][3].setBackground(Color.BLACK);
-//		buttons[4][2].setBackground(Color.WHITE);
-//		buttons[2][2].setBackground(Color.WHITE);
-//		
-//		buttons[1][1].setBackground(Color.BLACK);
-//		buttons[2][1].setBackground(Color.BLACK);
-//		buttons[3][1].setBackground(Color.BLACK);
-//		
-//		buttons[5][5].setBackground(Color.WHITE);
-//		
-//		if(Grid.turn == "W")
-//		{
-//			DetectCordinates.yourColor = Color.WHITE;
-//			DetectCordinates.opponentColor = Color.BLACK;
-//			
-//			GreedySearch.getGreedyPositions();
-//			
-//			DetectCordinates.filterTileList();
-//			System.out.println("check");
-//			System.out.println(GreedySearch.diagonalWhite);
-//		}
+////		test 2
+		buttons[5][4].setBackground(Color.BLACK);
+		buttons[5][3].setBackground(Color.BLACK);
+		buttons[4][2].setBackground(Color.WHITE);
+		buttons[2][2].setBackground(Color.WHITE);
+		
+		buttons[1][1].setBackground(Color.BLACK);
+		buttons[2][1].setBackground(Color.BLACK);
+		buttons[3][1].setBackground(Color.BLACK);
+		
+		buttons[5][5].setBackground(Color.WHITE);
+		
+		if(Grid.turn == "W")
+		{
+			DetectCordinates.yourColor = Color.WHITE;
+			DetectCordinates.opponentColor = Color.BLACK;
+			
+			GreedySearch.getGreedyPositions();
+			
+			DetectCordinates.filterTileList();
+			System.out.println("check");
+			System.out.println(GreedySearch.diagonalWhite);
+		}
 	}
 
 	private static void setStartignBoard() 
 	{
-		buttons[3][3].setBackground(Color.BLACK);
-		buttons[3][4].setBackground(Color.WHITE);
-		buttons[4][3].setBackground(Color.WHITE);
-		buttons[4][4].setBackground(Color.BLACK);
-		DetectCordinates.whiteCordinates.add(3+","+4);
-		DetectCordinates.whiteCordinates.add(4+","+3);
-		DetectCordinates.blackCordinates.add(3+","+3);
-		DetectCordinates.blackCordinates.add(4+","+4);
+		buttons[3][3].setBackground(Color.WHITE);
+		buttons[3][4].setBackground(Color.black);
+		buttons[4][3].setBackground(Color.BLACK);
+		buttons[4][4].setBackground(Color.WHITE);
+		DetectCordinates.blackCordinates.add(3+","+4);
+		DetectCordinates.blackCordinates.add(4+","+3);
+		DetectCordinates.whiteCordinates.add(3+","+3);
+		DetectCordinates.whiteCordinates.add(4+","+4);
 	}
 
 	@Override

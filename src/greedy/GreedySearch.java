@@ -53,7 +53,7 @@ public class GreedySearch
 		    	key = entry.getKey();
 		    }
 		}
-		System.out.println("Dia MAX " +key+","+s);
+		System.out.println("Dia MAX:::: " +key+","+s);
 		return (key+","+s);
 		
 		
@@ -73,7 +73,7 @@ public class GreedySearch
 		    	key = entry.getKey();
 		    }
 		}
-		System.out.println("Ver MAX " +key+","+s);
+		System.out.println("Ver MAX::::: " +key+","+s);
 		return (key+","+s);
 	
 		
@@ -93,7 +93,7 @@ public class GreedySearch
 		    	key = entry.getKey();
 		    }
 		}
-		System.out.println("Hor MAX " +key+","+s);
+		System.out.println("Hor MAX::::: " +key+","+s);
 		return (key+","+s);
 		
 	
